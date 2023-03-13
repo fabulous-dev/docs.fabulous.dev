@@ -1,0 +1,87 @@
+@import '../../themes/fabulous.dev-theme/assets/sass/colors', '../../themes/fabulous.dev-theme/assets/sass/fonts', '../../themes/fabulous.dev-theme/assets/sass/main';
+
+main {
+    @include padding-page;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 24px;
+    margin-bottom: 48px;
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        align-items: center;
+
+        .content-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            border-radius: 8px;
+            background-color: $secondary-color-3;
+            padding: 22px;
+            width: 208px;
+
+            h2 {
+                color: $secondary-color-1;
+            }
+
+            p {
+                color: $secondary-color-2;
+            }
+        }
+    }
+}
+
+header {
+    #menu-button:has(#menu-button-checkbox:checked) + .menu {
+        background-color: rgba($color: #696892, $alpha: 0.3);
+        backdrop-filter: blur(20px);
+        border-radius: 18px 0px 0px 18px;
+        right: 0px;
+        top: 0px;
+        width: 70%;
+        height: calc(100vh - 40px);
+    }
+
+    .menu {
+        gap: 16px;
+
+        input[type = "search"] {
+            background-color: transparent;
+            border: 1px solid $secondary-color-1;
+            border-radius: 8px;
+            height: 36px;
+            margin-top: 16px;
+        }
+
+        select {
+            background-color: transparent;
+            border: 1px solid $secondary-color-1;
+            border-radius: 8px;
+            color: white;
+            height: 36px;
+            padding-left: 10px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        ul {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            gap: 18px;
+            list-style: none;
+            a {
+                @include font-paragraph;
+                text-decoration: none;
+            }
+        }
+
+        a.button.outlined {
+            margin-top: 24px;
+            align-self: center;
+        }
+    }
+}
