@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Welcome](README.md)
+* [Fabulous 2.0](README.md)
 * [Get Started](get-started.md)
 * [Samples & Tutorials](samples-and-tutorials/README.md)
   * [Samples](samples-and-tutorials/samples.md)
