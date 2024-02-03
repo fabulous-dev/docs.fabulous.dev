@@ -46,6 +46,9 @@
 ## .NET MAUI <a href="#maui" id="maui"></a>
 
 * [Get Started](maui/get-started.md)
+* [Advanced](maui/advanced/README.md)
+  * [Optimizing performances](maui/advanced/optimizing-performances/README.md)
+    * [Profiling Fabulous apps](maui/advanced/optimizing-performances/profiling-fabulous-apps.md)
 
 ## Avalonia
 
