@@ -15,7 +15,7 @@ let update msg model =
     | TimerToggled on -> { model with TimerOn = on }
 ```
 
-### Commands&#x20;
+### Commands
 
 A command (type `Cmd<'msg>`) is a callback that can dispatch messages, i.e. gets access to `dispatch` when run.
 
@@ -30,7 +30,7 @@ let timerCmd =
     |> Cmd.ofAsyncMsg
 ```
 
-### Triggering Commands on Initialization&#x20;
+### Triggering Commands on Initialization
 
 The `init` function may trigger commands, e.g. initial database requests. This is permitted when using `Program.mkProgram`. For example here is a pattern to get an initial balance on startup:
 
@@ -40,7 +40,7 @@ let fetchInitialBalance = Cmd.ofAsyncMsg (async { ... })
 let init () = { ... }, fetchInitialBalance
 ```
 
-### Triggering Commands as Messages are Processed&#x20;
+### Triggering Commands as Messages are Processed
 
 The `update` function may trigger commands such as timers. This is permitted when using `Program.mkProgram`. For example, here is one pattern for a timer loop that can be turned on/off:
 
@@ -67,7 +67,7 @@ let update msg model =
     | TimedTick -> if model.TimerOn then { model with Count = model.Count + model.Step }, timerCmd else model, Cmd.none
 ```
 
-### Triggering Commands from External Events&#x20;
+### Triggering Commands from External Events
 
 You can also set up global subscriptions, which are events sent from outside the view or the dispatch loop. For example, dispatching `ClockMsg` messages on a global timer:
 
@@ -92,15 +92,14 @@ let subscribeToPushEvent dispatch =
      call dispatch in some closure
      ...
 
-let runner = 
-    Program.mkSimple App.init App.update App.view
+let program = 
+    Program.stateful App.init App.update App.view
     |> Program.withSubscription (fun _ -> Cmd.ofSub subscribeToPushEvent)
-    |> Program.runWithDynamicView app
 ```
 
 Everything that wants access to `dispatch` must be mentioned in the composition of the overall app, or as part of a command produced as a result of processing a message, or in the view.
 
-### Threading and Long-running Operations&#x20;
+### Threading and Long-running Operations
 
 The rules:
 
@@ -119,7 +118,7 @@ let backgroundCmd =
     })
 ```
 
-### Optional commands&#x20;
+### Optional commands
 
 There might be cases where before a message is sent, you need to check if you want to send it (e.g. check user’s preferences, ask user’s permission, …)
 
@@ -160,7 +159,7 @@ let update msg model =
     | PictureTaken -> ...
 ```
 
-### Web requests in a command&#x20;
+### Web requests in a command
 
 Sometimes it is needed to make some web requests. Which tool you use here does not matter. For example you could use FSharp.Data to make HttpRequests. These are the steps that you have to do, to make it work:
 
@@ -215,7 +214,7 @@ match model.IsLoggedIn with
 | false -> LoginView
 ```
 
-### Platform-specific dispatch&#x20;
+### Platform-specific dispatch
 
 Some platform-specific features (like deep linking, memory warnings, …) are not available in Xamarin.Forms, and need you to implement them in the corresponding app projet.\
 In this case, you might want to dispatch a message from the app project to Fabulous to start a shared logic between platforms (to warn user, …).

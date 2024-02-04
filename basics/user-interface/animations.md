@@ -1,6 +1,6 @@
 # Animations
 
-Animations and focus are specified by accessing the underlying Xamarin.Forms control and using Xamarin.Forms animation specifications. The underlying control is usually accessed via a `ViewRef`, akin to a `ref` in HTML/JavaScript and React.
+Animations and focus are specified by accessing the underlying control and using the UI framework animation specifications. The underlying control is usually accessed via a `ViewRef`, akin to a `ref` in HTML/JavaScript and React.
 
 * A `ViewRef` must have a sufficient scope that it lives long enough, e.g. a global scope or the scope of the model. The `ViewRef` can be held in the model itself if necessary.
 * Initially `ViewRef` are empty. They will only be populated after the `view` function has been called and its results applied to the visual display.
@@ -11,7 +11,8 @@ For example, the following shows the creation of a `ViewRef` and associating it 
 let animatedLabelRef = ViewRef<Label>()
 
 let view dispatch model = 
-    View.Label(text="Rotate", ref=animatedLabelRef) 
+    Label("Rotate")
+        .reference(animatedLabelRef) 
 ```
 
 The underlying control can also be accessed by using the `created` handler:
@@ -26,9 +27,9 @@ View.Label(text="hello", created=(fun l ->  label <- Some l))
 > The `Value` property may thus fail if the underlying control has been collected.\
 > As a result it is often sensible to use the `TryValue` property which returns an option.
 
-### Animations&#x20;
+### Animations
 
-Animations are specified by using a Xamarin.Forms animation specification on the underlying control, e.g.
+Animations are specified by using an animation specification on the underlying control, e.g.
 
 ```fsharp
 let animatedLabelRef = ViewRef<Label>()
@@ -40,13 +41,15 @@ let update msg model =
         | None -> () 
         | Some c -> c.RotateTo (360.0, 2000u) |> ignore
 
-let view dispatch model = 
-    View.StackLayout [
-        View.Label(text="Rotate", ref=animatedLabelRef) 
-        View.Button(text="Rotate", command=(fun () -> dispatch Poked)) 
-    ]
+let view dispatch = 
+    VStack() {
+        Label("Rotate")
+            .reference(animatedLabelRef)
+            
+        Button("Rotate", Poked)
+    }
 ```
 
-Animations in Xamarin.Forms specify tasks. These are ignorable if the animation is simple. Composite animations must compose tasks, either by using `async { ...}` and `Async.AwaitTask` and `Async.StartAsTask`, or by using `task { ... }` from the F# community `TaskBuilder` library.
+Animations in specify tasks. These are ignorable if the animation is simple. Composite animations must compose tasks, either by using `async { ...}` and `Async.AwaitTask` and `Async.StartAsTask`, or by using `task { ... }` from the F# community `TaskBuilder` library.
 
 Examples of custom tasks are shown in C# syntax in [Animation in Xamarin.Forms](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/animation/).

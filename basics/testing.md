@@ -4,7 +4,7 @@ The Model-View-Update architecture used by Fabulous makes it simple to unit test
 Apps are composed of 3 key pure F# functions: `init`, `update` and `view`\
 They take some parameters and return a value. Ideal for unit testing.
 
-### Testing `init`&#x20;
+### Testing `init`
 
 `init` is the easiest one to test.\
 It usually takes nothing and returns a value.
@@ -29,7 +29,7 @@ let ``Init should return a valid initial state``() =
     App.init () |> should equal { Count = 0; Step = 1 }
 ```
 
-### Testing `update`&#x20;
+### Testing `update`
 
 `update` can be more complex but it remains a pure F# function.\
 Testing it is equivalent to what we just did with `init`.
@@ -75,7 +75,7 @@ let ``Given the message Reset, Update should reset the state``() =
     App.update Reset initialModel |> should equal expectedModel
 ```
 
-### Testing `init` and `update` when using commands&#x20;
+### Testing `init` and `update` when using commands
 
 Commands are a great way for executing a set of tasks (asynchronous or not) after receiving a message.
 
@@ -109,7 +109,7 @@ let init () =
 let update msg model =
     match msg with
     | TimerToggled on ->
-       { model with TimerOn = on }, [ if on then yield TimerTick ]
+       { model with TimerOn = on }, [ if on then TimerTick ]
     | TimedTick ->
        if model.TimerOn then
           { model with Count = model.Count + model.Step }, [ TimerTick ]
@@ -130,22 +130,17 @@ let togglingOnShouldTriggerTimerTick () =
 The actual commands are still executed as `Cmd<'msg>` though.\
 So in order to make this work with Fabulous, you need a function that will convert a `CmdMsg` to a `Cmd<'msg>`
 
-Fabulous then helps you boot your application using `Program.mkProgramWithCmdMsg`
+Fabulous then helps you boot your application using `Program.statefulWithCmdMsg`
 
 ```fsharp
 let mapCommands cmdMsg =
     match cmdMsg with
     | TimerTick -> timerCmd()
 
-type App() as app =
-    inherit Application()
-
-    let runner =
-        Program.mkProgramWithCmdMsg init update view mapCommands
-        |> XamarinFormsProgram.run app
+let program =
+    Program.statefulWithCmdMsg init update view mapCommands
 ```
 
-Note that `Program.mkProgramWithCmdMsg` doesn’t do anything magic.\
+Note that `Program.statefulWithCmdMsg` doesn’t do anything magic.\
 It only applies `mapCommands` to any `CmdMsg` returned by `init` and `update`.\
-You could achieve the exact same behavior by converting them yourself and using `Program.mkProgram`.\
-\
+You could achieve the exact same behavior by converting them yourself and using `Program.stateful`.

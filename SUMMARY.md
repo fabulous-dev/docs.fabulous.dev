@@ -2,9 +2,6 @@
 
 * [Fabulous 2.0](README.md)
 * [Get Started](get-started.md)
-* [Samples & Tutorials](samples-and-tutorials/README.md)
-  * [Samples](samples-and-tutorials/samples.md)
-  * [Videos](samples-and-tutorials/videos.md)
 * [Basics](basics/README.md)
   * [MVU](basics/mvu.md)
   * [Application state](basics/application-state/README.md)
@@ -31,6 +28,8 @@
 ## Xamarin.Forms <a href="#xamarinforms" id="xamarinforms"></a>
 
 * [Get Started](xamarinforms/get-started.md)
+* [Samples & Tutorials](xamarinforms/samples-and-tutorials/README.md)
+  * [Videos](xamarinforms/samples-and-tutorials/videos.md)
 * [User interface](xamarinforms/user-interface/README.md)
   * [Custom controls](xamarinforms/user-interface/custom-controls.md)
   * [Effects](xamarinforms/user-interface/effects.md)
@@ -46,6 +45,8 @@
 ## .NET MAUI <a href="#maui" id="maui"></a>
 
 * [Get Started](maui/get-started.md)
+* [Samples & Tutorials](maui/samples-and-tutorials/README.md)
+  * [Samples](maui/samples-and-tutorials/samples.md)
 * [Advanced](maui/advanced/README.md)
   * [Optimizing performances](maui/advanced/optimizing-performances/README.md)
     * [Profiling Fabulous apps](maui/advanced/optimizing-performances/profiling-fabulous-apps.md)
